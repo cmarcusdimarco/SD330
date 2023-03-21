@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>e06-dimarco</title>
+    <style>
+        @keyframes powerOnBackground {
+            0%  {background-color: silver;}
+            100% {background-color: green;}
+        }
+        @keyframes powerOffBackground {
+            0% {background-color: green;}
+            100% {background-color: silver;}
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        button {
+            width: 50%;
+        }
+        span {
+            background-color: black;
+            display: flex;
+            font-family: sans-serif;
+            height: 2em;
+            justify-content: space-evenly;
+            align-items: center;
+            width: 100%;
+        }
+        .fridgeBody {
+            display: grid;
+            grid: 6em / 1fr 1fr;
+            align-items: center;
+            text-align: center;
+        }
+        .fridgeBody .buttonContainer {
+            animation-duration: 1s;
+            background-color: silver;
+            border: 2px solid black;
+            border-radius: 5px;
+            grid-area: 1 / 1 / span 1 / span 1;
+            margin: 1rem;
+            max-height: 100%;
+            padding: 0.5rem;
+        }
+        .fridgeBody .thermometerContainer {
+            background-color: silver;
+            border: 2px solid black;
+            border-radius: 5px;
+            grid-area: 1 / 2 / span 1 / span 1;
+            height: 1em;
+            margin: 1rem;
+            max-height: 100%;
+            padding: 0.5rem;
+        }
+        .fridgeBody #thermometer {
+            width: 100%;
+        }
+        .fridgeBody button {
+            animation-duration: 1s;
+        }
+        .fridgeContainer {
+            animation-duration: 1s;
+            background-color: silver;
+            border: 2px solid black;
+            display: flex;
+            flex-direction: column;
+            height: 24em;
+            width: 25%;
+        }
+        #clock {
+            color: white;
+            width: 50%;
+        }
+        #imageContainer {
+            grid-area: 2 / 1 / span 1 / span 2;
+            height: 16em;
+        }
+        #fridgeImage {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+<body onload="loadPage()">
+    <h1>E06-dimarco</h1>
+
+    <div class="fridgeContainer">
+        <span>
+            <span id="clock"></span>
+            <button onclick="togglePower()">ON/OFF</button>
+        </span>
+        <div class="fridgeBody">
+            <div class="buttonContainer">
+                <button id="doorButton" onclick="toggleDoor()" disabled>Open door</button>
+                <button id="webButton" onclick="toggleWeb()" disabled>Web browser</button>
+                <button id="tvButton" onclick="toggleTV()" disabled>TV</button>
+            </div>
+            <div class="thermometerContainer">
+                <div id="thermometer">40</div>
+            </div>
+            <div id="imageContainer">
+                <img src="" id="fridgeImage">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <hr>
+        <small>&copy; C. Marcus DiMarco, February 27, 2023</small>
+    </footer>
+    <script>
+        let isPoweredOn = false;
+        let doorIsOpen = false;
+
+        function togglePower() {
+            isPoweredOn = !isPoweredOn;
+            const fridgePanel = document.getElementsByClassName('buttonContainer').item(0);
+            // Get the array of buttons within the fridge body
+            const fridgeButtons = document.getElementsByClassName('buttonContainer')
+                .item(0)
+                .getElementsByTagName("button");
+            const thermometer = document.getElementById('thermometer');
+
+            if (isPoweredOn) {
+                fridgePanel.style.animationName = 'powerOnBackground';
+                fridgePanel.style.backgroundColor = 'green';
+                // Adding a slight delay to enabling/disabling the buttons helps add a responsive feel
+                for (let button of fridgeButtons) {
+                    setTimeout(() => button.removeAttribute('disabled'), 50);
+                }
+            } else {
+                fridgePanel.style.animationName = 'powerOffBackground';
+                fridgePanel.style.backgroundColor = 'silver';
+                for (let button of fridgeButtons) {
+                    setTimeout(() => button.setAttribute('disabled', 'disabled'), 125);
+                }
+            }
+        }
+
+        function updateClock() {
+            const clock = document.getElementById('clock');
+            clock.innerHTML = new Date().toLocaleTimeString();
+        }
+
+        function updateTemperature() {
+            const container = document.getElementsByClassName('thermometerContainer')[0];
+            const thermometer = document.getElementById('thermometer');
+            let temperature = parseInt(thermometer.textContent);
+            if (isPoweredOn && doorIsOpen && temperature < 65) {
+                temperature = temperature + 1;
+                thermometer.textContent = (temperature).toString();
+            } else if (isPoweredOn && !doorIsOpen && temperature > 38) {
+                temperature = temperature - 1;
+                thermometer.textContent = (temperature).toString();
+            }
+        }
+
+        function toggleDoor() {
+            const image = document.getElementById('fridgeImage');
+            const button = document.getElementById('doorButton');
+
+            doorIsOpen = !doorIsOpen;
+
+            if (isPoweredOn && doorIsOpen) {
+                button.textContent = 'Close door';
+                image.src = 'https://aptokash.github.io/SD330/06-fridge.jpg';
+            } else if (isPoweredOn) {
+                button.textContent = 'Open door';
+                if (image.src == 'https://aptokash.github.io/SD330/06-fridge.jpg') {
+                    image.src = '';
+                }
+            }
+        }
+
+        function toggleWeb() {
+            const image = document.getElementById('fridgeImage');
+
+            if (isPoweredOn) {
+                if (image.src == 'https://aptokash.github.io/SD330/06-web.jpg') {
+                    image.src = '';
+                } else {
+                    image.src = 'https://aptokash.github.io/SD330/06-web.jpg';
+                }
+            }
+        }
+
+        function toggleTV() {
+            const image = document.getElementById('fridgeImage');
+
+            if (isPoweredOn) {
+                if (image.src == 'https://aptokash.github.io/SD330/06-tv.jpg') {
+                    image.src = '';
+                } else {
+                    image.src = 'https://aptokash.github.io/SD330/06-tv.jpg';
+                }
+            }
+        }
+
+        function loadPage() {
+            const clock = document.getElementById('clock');
+            clock.innerHTML = new Date().toLocaleTimeString();
+        }
+
+        setInterval(updateClock, 1000);
+        setInterval(updateTemperature, 1000);
+    </script>
+</body>
+</html>
