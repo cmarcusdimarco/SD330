@@ -25,12 +25,14 @@
         .item {
             flex-shrink: 0;
             padding: 0 2em;
-            width: 100%;
+            transition: 0.6s ease-out;
+            width: calc(100% - 4em);
         }
         /* Slideshow format inspired by https://www.w3schools.com/howto/howto_js_slideshow.asp */
         .scrollButton {
             border-radius: 0 3px 3px 0;
             align-items: center;
+            animation-duration: 1s;
             color: black;
             cursor: pointer;
             display: flex;
@@ -48,7 +50,40 @@
             right: 0;
             border-radius: 3px 0 0 3px;
         }
+        @keyframes error {
+            0% {background-color: rgba(0,0,0,0.2);}
+            25% {background-color: rgba(143, 52, 52, 0.646);}
+            50% {background-color: rgba(0,0,0,0.2);}
+            75% {background-color: rgba(143, 52, 52, 0.646);}
+            100% {background-color: rgba(0,0,0,0.2);}
+        }
     </style>
+    <script>
+        let currentSlide = 0;
+        const slides = document.getElementsByClassName("item");
+
+        function previous() {
+            if (currentSlide === 0) {
+                const button = document.getElementsByClassName("scrollButton")[0];
+                button.style.removeAttribute('animation-name');
+                button.style.animationName = 'error';
+            } else {
+                slides[currentSlide].style.marginLeft = '100%';
+                slides[currentSlide -= 1].style.marginLeft = '0%';
+            }
+        }
+
+        function next() {
+            if (currentSlide === slides.length - 1) {
+                const button = document.getElementsByClassName("scrollButton")[1];
+                button.style.removeAttribute('animation-name');
+                button.style.animationName = 'error';
+            } else {
+                slides[currentSlide].style.marginLeft = '-100%';
+                slides[currentSlide += 1].style.marginLeft = '0%';
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Marcus's Design Principles</h1>
@@ -207,10 +242,10 @@
                 things in the world, to help convey metaphors and functions to the user.</li>
             </ul>
         </div>
-        <a class="scrollButton" onclick="">
+        <a class="scrollButton" onclick="previous()">
             <div>&#10094;</div>
         </a>
-        <a class="scrollButton next" onclick="">
+        <a class="scrollButton next" onclick="next()">
             <div>&#10095;</div>
         </a>
     </div>
