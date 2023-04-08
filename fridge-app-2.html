@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e10-dimarco</title>
+    <style>
+        body {
+            background-color: dimgrey;
+            display: flex;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            justify-content: center;
+        }
+        .master-container {
+            align-items: center;
+            background-color: white;
+            border: 2px solid black;
+            display: grid;
+            grid-template: repeat(8, 6em) / repeat(12, auto);
+            justify-items: center;
+            width: 96em;
+            height: 48em;
+        }
+        .button {
+            background-color: blue;
+            border: 1px solid black;
+            border-radius: 1em;
+            height: 50%;
+            width: 75%;
+        }
+        #clock {
+            background-color: blue;
+            border: 1px solid black;
+            border-radius: 1em;
+            grid-area: 2 / 1 / 9 / 13;
+            height: 96%;
+            text-align: center;
+            width: 98%;
+        }
+        #thermometer {
+            grid-area: 1 / 11 / 2 / 12;
+        }
+        #power {
+            grid-area: 1 / 12 / 2 / 13;
+        }
+    </style>
+</head>
+<body>
+    <div class="master-container">
+        <div class="button" id="thermometer"></div>
+        <div class="button" id="power"></div>
+        <div id="clock">9:31 PM</div>
+    </div>
+</body>
+</html>
