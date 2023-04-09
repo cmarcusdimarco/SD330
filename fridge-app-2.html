@@ -5,6 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e10-dimarco</title>
+    <script>
+        let isPowered = false;
+
+        function onLoad() {
+            const powerButton = document.getElementById("power");
+            
+            powerButton.addEventListener("click", togglePower);
+        }
+
+        function lowerTemperature() {
+
+        }
+
+        function raiseTemperature() {
+            const temperature = document.getElementById("temperature");
+            let text = temperature.innerText;
+
+        }
+
+        function togglePower() {
+            const upButton = document.getElementById("control-up");
+            const downButton = document.getElementById("control-down");
+            const powerButton = document.getElementById("power");
+
+            isPowered = !isPowered;
+        
+            // Only allow buttons to function if system isPowered
+            if (isPowered) {
+                upButton.addEventListener("click", raiseTemperature);
+                downButton.addEventListener("click", lowerTemperature);
+                powerButton.style.backgroundColor = "red";
+            } else {
+                upButton.removeEventListener("click", raiseTemperature);
+                downButton.removeEventListener("click", lowerTemperature);
+                powerButton.style.backgroundColor = "rgb(55, 219, 68)";
+            }
+        }
+    </script>
     <style>
         body {
             background-color: dimgrey;
@@ -23,37 +61,70 @@
             height: 48em;
         }
         .button {
+            align-items: center;
             background-color: blue;
             border: 1px solid black;
             border-radius: 1em;
-            color: white;
+            display: flex;
             height: 50%;
+            justify-content: center;
             width: 75%;
         }
+        .button-text {
+            color: white;
+            font-size: large;
+            text-align: center;
+            width: 50%;
+        }
+        .controls {
+            color:rgb(55, 219, 68);
+            display: flex;
+            flex-direction: column;
+            font-weight: bold;
+            text-align: center;
+        }
+        .text {
+            font-size: 144px;
+        }
         #clock {
+            align-items: center;
             background-color: blue;
             border: 1px solid black;
             border-radius: 1em;
             color: white;
+            display: flex;
             grid-area: 2 / 1 / 9 / 13;
             height: 96%;
-            text-align: center;
+            justify-content: center;
             width: 98%;
         }
         #thermometer {
             grid-area: 1 / 11 / 2 / 12;
         }
         #power {
-            background-color: green;
+            background-color: rgb(55, 219, 68);
             grid-area: 1 / 12 / 2 / 13;
+        }
+        #power:hover {
+            cursor: pointer;
         }
     </style>
 </head>
-<body>
+<body onload="onLoad()">
     <div class="master-container">
-        <div class="button" id="thermometer"></div>
-        <div class="button" id="power"></div>
-        <div id="clock">9:31 PM</div>
+        <div class="button" id="thermometer">
+            <div class="button-text" id="temperature">42°F</div>
+            <div class="controls">
+                <div id="control-up">^</div>
+                <div id="control-down">v</div>
+            </div>
+        </div>
+        <div class="button" id="power">
+            <div class="button-text">ON</div>
+        </div>
+        <div id="clock">
+            <div class="text" id="clock-text">9:31 PM</div>
+        </div>
     </div>
 </body>
 </html>
