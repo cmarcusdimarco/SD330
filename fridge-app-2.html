@@ -89,6 +89,21 @@
             backButton.style.zIndex = "0";
             backText.style.zIndex = "0";
 
+            // Attach event listener to back button
+            backButton.addEventListener("click", () => {
+                appBackground.style.zIndex = "-1";
+                backButton.style.zIndex = "-1";
+                backText.style.zIndex = "-1";
+
+                for (let tile of tiles) {
+                    tile.style.zIndex = "0";
+                }
+
+                for (let text of tileTexts) {
+                    text.style.zIndex = "0";
+                }
+            });
+
             // Set back text to argued value
             backText.innerText = text;
 
@@ -149,6 +164,9 @@
         }
 
         function togglePower() {
+            const appBackground = document.getElementById("app-background");
+            const backButton = document.getElementById("back");
+            const backText = document.getElementById("back-text");
             const clock = document.getElementById("clock");
             const clockText = document.getElementById("clock-text");
             const upButton = document.getElementById("control-up");
@@ -245,6 +263,11 @@
                 for (let text of tileTexts) {
                     text.style.zIndex = "-1";
                 }
+
+                // Hide other elements that may have been rendered visible
+                appBackground.style.zIndex = "-1";
+                backButton.style.zIndex = "-1";
+                backText.style.zIndex = "-1";
 
                 powerButton.style.backgroundColor = "red";
                 powerText.innerText = "OFF";
