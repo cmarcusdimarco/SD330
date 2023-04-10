@@ -36,22 +36,26 @@
 
         function openTV() {
             openApp("TV");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<img src="https://www.vizio.com/content/dam/vizio/2022/apps---entertaiment/a02-1324x745.jpg" style="max-width: 100%; max-height: 100%;">';
         }
 
         function openWeb() {
             openApp("WEB");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<img src="https://static.wixstatic.com/media/ea6ac8_b6b0cbe25615488e855f515846354dda~mv2.jpg/v1/fill/w_640,h_420,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/ea6ac8_b6b0cbe25615488e855f515846354dda~mv2.jpg" style="max-width: 100%; max-height: 100%;">';
         }
 
         function openFridge() {
             openApp("FRIDGE");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<img src="https://hips.hearstapps.com/hmg-prod/images/refrigerator-full-of-food-royalty-free-image-1596641208.jpg" style="max-width: 100%; max-height: 100%;">';
         }
 
         function openWeather() {
             openApp("WEATHER");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<img src="https://gray-kptv-prod.cdn.arcpublishing.com/resizer/L5eOLPLS6ciSczQ-wLy-KpBWZ-s=/1200x800/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/6DQSYHUBHNHVBKLHCRKC6WYDVI.jpg" style="max-width: 100%; max-height: 100%;">';
         }
 
         function openShopping() {
@@ -66,11 +70,15 @@
 
         function openYoutube() {
             openApp("YOUTUBE");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<iframe width="560" height="315" src="https://www.youtube.com/embed/8y7GRYaYYQg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>' +
+                                      '<p>I had originally tried to link <a href="https://www.youtube.com/watch?v=WtwneW2s2bo" target="blank">this video</a>, but seems like the copyrighted music prevents the embed. Check it out anyway for a good laugh!</p>';
         }
 
         function openSpotify() {
             openApp("SPOTIFY");
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2hnMS47jN0etwvFPzYk11f?utm_source=generator&theme=0" width="50%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>';
         }
 
         function openApp(text) {
@@ -91,6 +99,7 @@
 
             // Attach event listener to back button
             backButton.addEventListener("click", () => {
+                appBackground.innerHTML = "";
                 appBackground.style.zIndex = "-1";
                 backButton.style.zIndex = "-1";
                 backText.style.zIndex = "-1";
@@ -371,12 +380,17 @@
             background-color: blue;
             border: 1px solid black;
             border-radius: 1em;
+            color: white;
             display: flex;
+            flex-direction: column;
             grid-area: 3 / 1 / 9 / 13;
             height: 96%;
             justify-content: center;
             width: 98%;
             z-index: -1;
+        }
+        #app-background a {
+            color: orange;
         }
         #back {
             grid-area: 2 / 1 / 3 / 2;
