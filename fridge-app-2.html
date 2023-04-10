@@ -61,7 +61,8 @@
 
         function openShopping() {
             openApp("SHOPPING LIST");
-
+            const appBackground = document.getElementById("app-background");
+            appBackground.innerHTML = '<p>Shopping List</p><ul id="list" onload="loadSessionStorage()"></ul><form onsubmit="storeItem(event)"><input type="text" id="input" placeholder="Add an item..."></form>';
         }
 
         function openTimer() {
@@ -321,6 +322,32 @@
             }
 
             timer.innerText = time.toString();
+        }
+
+        function loadSessionStorage() {
+            const list = document.getElementById("list");
+
+            // Suggested by https://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5-and-javascript
+            Object.keys(sessionStorage).forEach(function(key) {
+                const node = document.createElement("li");
+                const text = document.createTextNode(sessionStorage.getItem(key));
+                node.appendChild(text);
+                list.appendChild(node);
+            });
+        }
+
+        function storeItem(event) {
+            event.preventDefault();
+
+            const input = document.getElementById("input");
+            const list = document.getElementById("list");
+
+            const node = document.createElement("li");
+            const text = document.createTextNode(input.value);
+            node.appendChild(text);
+            list.appendChild(node);
+
+            sessionStorage.setItem(sessionStorage.length.toString(), input.value);
         }
 
         function updateClock() {
