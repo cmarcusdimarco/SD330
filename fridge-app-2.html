@@ -14,9 +14,15 @@
             // Get DOM elements
             const powerButton = document.getElementById("power");
             const clockText = document.getElementById("clock-text");
+            const temperature = document.getElementById("temperature");
 
             // Set clock to current time, default to 12-hour clock
             clockText.innerText = new Date().toLocaleTimeString();
+
+            // Set temperature to random number between 35 and 45
+            let randomTemperature = 45 - Math.floor(Math.random() * 10);
+            let temperatureString = randomTemperature.toString() + '°F';
+            temperature.innerText = temperatureString;
             
             // Add event listener to power button
             powerButton.addEventListener("click", togglePower);
