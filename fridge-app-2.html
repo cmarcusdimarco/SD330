@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e10-dimarco</title>
     <script>
+        // Global audio file for tile clicking
+        const audio = new Audio("https://cdn.freesound.org/previews/683/683099_6253486-lq.mp3");
+
         // Global booleans for managing state
         let isPowered = false;
         let is24hourClock = false;
@@ -30,6 +33,55 @@
             // Update clock every second
             setInterval(updateClock, 1000);
         }
+
+        function openTV() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openWeb() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openFridge() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openWeather() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openShopping() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openTimer() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openYoutube() {
+            audio.pause();
+            audio.play();
+
+        }
+
+        function openSpotify() {
+            audio.pause();
+            audio.play();
+
+        }
+
 
         function lowerTemperature() {
             const parentElement = document.getElementById("temperature");
@@ -84,6 +136,16 @@
             const tiles = document.getElementsByClassName("tile");
             const tileTexts = document.getElementsByClassName("tile-text");
 
+            // Get tiles for individual access
+            const tvTile = tiles[0];
+            const webTile = tiles[1];
+            const fridgeTile = tiles[2];
+            const weatherTile = tiles[3];
+            const shoppingTile = tiles[4];
+            const timerTile = tiles[5];
+            const youtubeTile = tiles[6];
+            const spotifyTile = tiles[7];
+
             isPowered = !isPowered;
         
             // Only allow buttons to function if system isPowered
@@ -107,6 +169,16 @@
                 for (let tile of tiles) {
                     tile.style.zIndex = "0";
                 }
+
+                // Add event listeners for tiles
+                tvTile.addEventListener("click", openTV);
+                webTile.addEventListener("click", openWeb);
+                fridgeTile.addEventListener("click", openFridge);
+                weatherTile.addEventListener("click", openWeather);
+                shoppingTile.addEventListener("click", openShopping);
+                timerTile.addEventListener("click", openTimer);
+                youtubeTile.addEventListener("click", openYoutube);
+                spotifyTile.addEventListener("click", openSpotify);
 
                 // Make tile texts visible
                 for (let text of tileTexts) {
@@ -135,6 +207,16 @@
                 for (let tile of tiles) {
                     tile.style.zIndex = "-1";
                 }
+
+                // Remove event listeners for tiles
+                tvTile.removeEventListener("click", openTV);
+                webTile.removeEventListener("click", openWeb);
+                fridgeTile.removeEventListener("click", openFridge);
+                weatherTile.removeEventListener("click", openWeather);
+                shoppingTile.removeEventListener("click", openShopping);
+                timerTile.removeEventListener("click", openTimer);
+                youtubeTile.removeEventListener("click", openYoutube);
+                spotifyTile.removeEventListener("click", openSpotify);
 
                 // Make tile texts invisible
                 for (let text of tileTexts) {
@@ -249,6 +331,9 @@
             height: 96%;
             justify-content: center;
             width: 98%;
+        }
+        #clock:hover {
+            cursor: pointer;
         }
         #clock-text {
             font-size: 144px;
