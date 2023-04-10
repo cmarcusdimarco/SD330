@@ -15,31 +15,87 @@
         }
 
         function lowerTemperature() {
+            const parentElement = document.getElementById("temperature");
+            let temperature = parseInt(parentElement.innerText.substring(0, parentElement.innerText.length - 2));
+            let scale = parentElement.innerText.charAt(parentElement.innerText.length - 1);
+            
+            if (scale === 'F' && temperature < 33 || scale === 'C' && temperature < 1) {
+                alert("The temperature can't go any lower!");
+                return;
+            }
 
+            temperature--;
+
+            newTemperature = temperature.toString() + '°' + scale;
+
+            parentElement.innerText = newTemperature;
         }
 
         function raiseTemperature() {
-            const temperature = document.getElementById("temperature");
-            let text = temperature.innerText;
+            const parentElement = document.getElementById("temperature");
+            let temperature = parseInt(parentElement.innerText.substring(0, parentElement.innerText.length - 2));
+            let scale = parentElement.innerText.charAt(parentElement.innerText.length - 1);
+            
+            if (scale === 'F' && temperature > 68 || scale === 'C' && temperature > 20) {
+                alert("The temperature can't go any higher!");
+                return;
+            }
 
+            temperature++;
+
+            newTemperature = temperature.toString() + '°' + scale;
+
+            parentElement.innerText = newTemperature;
         }
 
         function togglePower() {
             const upButton = document.getElementById("control-up");
             const downButton = document.getElementById("control-down");
+            const temperature = document.getElementById("temperature");
             const powerButton = document.getElementById("power");
+            const powerText = document.getElementById("power-text");
 
             isPowered = !isPowered;
         
             // Only allow buttons to function if system isPowered
             if (isPowered) {
                 upButton.addEventListener("click", raiseTemperature);
+                upButton.style.color = "rgb(55, 219, 68)";
+                
                 downButton.addEventListener("click", lowerTemperature);
-                powerButton.style.backgroundColor = "red";
+                downButton.style.color = "rgb(55, 219, 68)";
+
+                temperature.addEventListener("click", toggleThermometer);
+
+                powerButton.style.backgroundColor = "rgb(55, 219, 68)";
+                powerText.innerText = "ON";
             } else {
                 upButton.removeEventListener("click", raiseTemperature);
+                upButton.style.color = "dimgrey";
+
                 downButton.removeEventListener("click", lowerTemperature);
-                powerButton.style.backgroundColor = "rgb(55, 219, 68)";
+                downButton.style.color = "dimgrey";
+
+                temperature.removeEventListener("click", toggleThermometer);
+
+                powerButton.style.backgroundColor = "red";
+                powerText.innerText = "OFF";
+            }
+        }
+
+        function toggleThermometer() {
+            const temperature = document.getElementById("temperature");
+            let scale = temperature.innerText[temperature.innerText.length - 1];
+            let newTemperature = parseInt(temperature.innerText.substring(0, temperature.innerText.length - 2));
+
+            if (scale === 'F') {
+                newTemperature = Math.floor((newTemperature - 32) * 5/9);
+                let temperatureString = newTemperature.toString() + '°C';
+                temperature.innerText = temperatureString;
+            } else {
+                newTemperature = Math.floor((newTemperature * 9/5) + 32);
+                let temperatureString = newTemperature.toString() + '°F';
+                temperature.innerText = temperatureString;
             }
         }
     </script>
@@ -77,11 +133,14 @@
             width: 50%;
         }
         .controls {
-            color:rgb(55, 219, 68);
+            color: dimgrey;
             display: flex;
             flex-direction: column;
             font-weight: bold;
             text-align: center;
+        }
+        .controls:hover {
+            cursor: pointer;
         }
         .text {
             font-size: 144px;
@@ -98,11 +157,14 @@
             justify-content: center;
             width: 98%;
         }
+        #temperature:hover {
+            cursor: pointer;
+        }
         #thermometer {
             grid-area: 1 / 11 / 2 / 12;
         }
         #power {
-            background-color: rgb(55, 219, 68);
+            background-color: red;
             grid-area: 1 / 12 / 2 / 13;
         }
         #power:hover {
@@ -120,7 +182,7 @@
             </div>
         </div>
         <div class="button" id="power">
-            <div class="button-text">ON</div>
+            <div class="button-text" id="power-text">OFF</div>
         </div>
         <div id="clock">
             <div class="text" id="clock-text">9:31 PM</div>
