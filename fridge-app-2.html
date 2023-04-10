@@ -7,11 +7,17 @@
     <title>e10-dimarco</title>
     <script>
         let isPowered = false;
+        let is24hourClock = false;
 
         function onLoad() {
             const powerButton = document.getElementById("power");
+            const clockText = document.getElementById("clock-text");
+
+            clockText.innerText = new Date().toLocaleTimeString();
             
             powerButton.addEventListener("click", togglePower);
+
+            setInterval(updateClock, 1000);
         }
 
         function lowerTemperature() {
@@ -48,7 +54,15 @@
             parentElement.innerText = newTemperature;
         }
 
+        function toggleClock() {
+            const clockText = document.getElementById("clock-text");
+
+            is24hourClock = !is24hourClock;
+            updateClock();
+        }
+
         function togglePower() {
+            const clock = document.getElementById("clock");
             const upButton = document.getElementById("control-up");
             const downButton = document.getElementById("control-down");
             const temperature = document.getElementById("temperature");
@@ -67,6 +81,8 @@
 
                 temperature.addEventListener("click", toggleThermometer);
 
+                clock.addEventListener("click", toggleClock);
+
                 powerButton.style.backgroundColor = "rgb(55, 219, 68)";
                 powerText.innerText = "ON";
             } else {
@@ -77,6 +93,8 @@
                 downButton.style.color = "dimgrey";
 
                 temperature.removeEventListener("click", toggleThermometer);
+
+                clock.removeEventListener("click", toggleClock);
 
                 powerButton.style.backgroundColor = "red";
                 powerText.innerText = "OFF";
@@ -96,6 +114,16 @@
                 newTemperature = Math.floor((newTemperature * 9/5) + 32);
                 let temperatureString = newTemperature.toString() + '°F';
                 temperature.innerText = temperatureString;
+            }
+        }
+
+        function updateClock() {
+            const clockText = document.getElementById("clock-text");
+
+            if (is24hourClock) {
+                clockText.innerText = new Date().toLocaleTimeString([], { hour12: false });
+            } else {
+                clockText.innerText = new Date().toLocaleTimeString();
             }
         }
     </script>
