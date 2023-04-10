@@ -62,7 +62,8 @@
         function openShopping() {
             openApp("SHOPPING LIST");
             const appBackground = document.getElementById("app-background");
-            appBackground.innerHTML = '<p>Shopping List</p><ul id="list" onload="loadSessionStorage()"></ul><form onsubmit="storeItem(event)"><input type="text" id="input" placeholder="Add an item..."></form>';
+            appBackground.innerHTML = '<p>Shopping List</p><ul id="list"></ul><form onsubmit="storeItem(event)"><input type="text" id="input" placeholder="Add an item..."></form><button onclick="clearStorage()">CLEAR</button>';
+            loadSessionStorage();
         }
 
         function openTimer() {
@@ -328,12 +329,11 @@
             const list = document.getElementById("list");
 
             // Suggested by https://stackoverflow.com/questions/3138564/looping-through-localstorage-in-html5-and-javascript
-            Object.keys(sessionStorage).forEach(function(key) {
+            for (let i = 0; i < sessionStorage.length; i++) {
                 const node = document.createElement("li");
-                const text = document.createTextNode(sessionStorage.getItem(key));
-                node.appendChild(text);
+                node.innerText = sessionStorage.getItem(sessionStorage.key(i));
                 list.appendChild(node);
-            });
+            }
         }
 
         function storeItem(event) {
@@ -348,6 +348,18 @@
             list.appendChild(node);
 
             sessionStorage.setItem(sessionStorage.length.toString(), input.value);
+
+            input.value = "";
+        }
+
+        function clearStorage() {
+            sessionStorage.clear();
+            const list = document.getElementById("list");
+            
+            // Implementation provided by https://www.w3schools.com/jsref/met_node_removechild.asp
+            while (list.hasChildNodes()) {
+                list.removeChild(list.firstChild);
+            }
         }
 
         function updateClock() {
