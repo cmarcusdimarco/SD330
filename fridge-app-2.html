@@ -6,17 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>e10-dimarco</title>
     <script>
+        // Global booleans for managing state
         let isPowered = false;
         let is24hourClock = false;
 
         function onLoad() {
+            // Get DOM elements
             const powerButton = document.getElementById("power");
             const clockText = document.getElementById("clock-text");
 
+            // Set clock to current time, default to 12-hour clock
             clockText.innerText = new Date().toLocaleTimeString();
             
+            // Add event listener to power button
             powerButton.addEventListener("click", togglePower);
 
+            // Update clock every second
             setInterval(updateClock, 1000);
         }
 
@@ -54,6 +59,7 @@
             parentElement.innerText = newTemperature;
         }
 
+        // Toggle between 12-hour and 24-hour formats
         function toggleClock() {
             const clockText = document.getElementById("clock-text");
 
@@ -63,11 +69,14 @@
 
         function togglePower() {
             const clock = document.getElementById("clock");
+            const clockText = document.getElementById("clock-text");
             const upButton = document.getElementById("control-up");
             const downButton = document.getElementById("control-down");
             const temperature = document.getElementById("temperature");
             const powerButton = document.getElementById("power");
             const powerText = document.getElementById("power-text");
+            const tiles = document.getElementsByClassName("tile");
+            const tileTexts = document.getElementsByClassName("tile-text");
 
             isPowered = !isPowered;
         
@@ -81,7 +90,22 @@
 
                 temperature.addEventListener("click", toggleThermometer);
 
+                // Shrink clock when powered on
                 clock.addEventListener("click", toggleClock);
+                clock.style.gridArea = "2 / 11 / 3 / 13";
+                clock.style.height = "75%";
+                clock.style.width = "90%";
+                clockText.style.fontSize = "x-large";
+
+                // Make tiles visible
+                for (let tile of tiles) {
+                    tile.style.zIndex = "0";
+                }
+
+                // Make tile texts visible
+                for (let text of tileTexts) {
+                    text.style.zIndex = "0";
+                }
 
                 powerButton.style.backgroundColor = "rgb(55, 219, 68)";
                 powerText.innerText = "ON";
@@ -94,7 +118,22 @@
 
                 temperature.removeEventListener("click", toggleThermometer);
 
+                // Resize clock when turned off
                 clock.removeEventListener("click", toggleClock);
+                clock.style.gridArea = "2 / 1 / 9 / 13";
+                clock.style.height = "96%";
+                clock.style.width = "98%";
+                clockText.style.fontSize = "144px";
+
+                // Make tiles invisible
+                for (let tile of tiles) {
+                    tile.style.zIndex = "-1";
+                }
+
+                // Make tile texts invisible
+                for (let text of tileTexts) {
+                    text.style.zIndex = "-1";
+                }
 
                 powerButton.style.backgroundColor = "red";
                 powerText.innerText = "OFF";
@@ -170,8 +209,20 @@
         .controls:hover {
             cursor: pointer;
         }
-        .text {
-            font-size: 144px;
+        .tile {
+            align-items: center;
+            background-color: blue;
+            border: 1px solid black;
+            border-radius: 1em;
+            display: flex;
+            height: 75%;
+            justify-content: center;
+            width: 75%;
+            z-index: -1;
+        }
+        .tile-text {
+            align-self: start;
+            z-index: -1;
         }
         #clock {
             align-items: center;
@@ -185,11 +236,62 @@
             justify-content: center;
             width: 98%;
         }
+        #clock-text {
+            font-size: 144px;
+        }
         #temperature:hover {
             cursor: pointer;
         }
         #thermometer {
             grid-area: 1 / 11 / 2 / 12;
+        }
+        #tv-tile {
+            grid-area: 3 / 3 / 5 / 5;
+        }
+        #tv-text {
+            grid-area: 5 / 3 / 6 / 5;
+        }
+        #web-tile {
+            grid-area: 3 / 5 / 5 / 7;
+        }
+        #web-text {
+            grid-area: 5 / 5 / 6 / 7;
+        }
+        #fridge-tile {
+            grid-area: 3 / 7 / 5 / 9;
+        }
+        #fridge-text {
+            grid-area: 5 / 7 / 6 / 9;
+        }
+        #weather-tile {
+            grid-area: 3 / 9 / 5 / 11;
+        }
+        #weather-text {
+            grid-area: 5 / 9 / 6 / 11;
+        }
+        #shopping-tile {
+            grid-area: 6 / 3 / 8 / 5;
+        }
+        #shopping-text {
+            grid-area: 8 / 3 / 9 / 5;
+        }
+        #timer-tile {
+            grid-area: 6 / 5 / 8 / 7;
+        }
+        #timer-text {
+            grid-area: 8 / 5 / 9 / 7;
+        }
+        #youtube-tile {
+            grid-area: 6 / 7 / 8 / 9;
+        }
+        #youtube-text {
+            grid-area: 8 / 7 / 9 / 9;
+        }
+        #spotify-tile {
+            grid-area: 6 / 9 / 8 / 11;
+        }
+        #spotify-text {
+            grid-area: 8 / 9 / 9 / 11;
         }
         #power {
             background-color: red;
@@ -213,8 +315,24 @@
             <div class="button-text" id="power-text">OFF</div>
         </div>
         <div id="clock">
-            <div class="text" id="clock-text">9:31 PM</div>
+            <div id="clock-text">9:31 PM</div>
         </div>
+        <div class="tile" id="tv-tile"></div>
+        <div class="tile-text" id="tv-text">TV</div>
+        <div class="tile" id="web-tile"></div>
+        <div class="tile-text" id="web-text">WEB</div>
+        <div class="tile" id="fridge-tile"></div>
+        <div class="tile-text" id="fridge-text">FRIDGE VIEW</div>
+        <div class="tile" id="weather-tile"></div>
+        <div class="tile-text" id="weather-text">WEATHER</div>
+        <div class="tile" id="shopping-tile"></div>
+        <div class="tile-text" id="shopping-text">SHOPPING LIST</div>
+        <div class="tile" id="timer-tile"></div>
+        <div class="tile-text" id="timer-text">TIMER</div>
+        <div class="tile" id="youtube-tile"></div>
+        <div class="tile-text" id="youtube-text">YOUTUBE</div>
+        <div class="tile" id="spotify-tile"></div>
+        <div class="tile-text" id="spotify-text">SPOTIFY</div>
     </div>
 </body>
 </html>
