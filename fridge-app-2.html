@@ -35,51 +35,74 @@
         }
 
         function openTV() {
-            audio.pause();
-            audio.play();
+            openApp("TV");
 
         }
 
         function openWeb() {
-            audio.pause();
-            audio.play();
+            openApp("WEB");
 
         }
 
         function openFridge() {
-            audio.pause();
-            audio.play();
+            openApp("FRIDGE");
 
         }
 
         function openWeather() {
-            audio.pause();
-            audio.play();
+            openApp("WEATHER");
 
         }
 
         function openShopping() {
-            audio.pause();
-            audio.play();
+            openApp("SHOPPING LIST");
 
         }
 
         function openTimer() {
-            audio.pause();
-            audio.play();
+            openApp("TIMER");
 
         }
 
         function openYoutube() {
-            audio.pause();
-            audio.play();
+            openApp("YOUTUBE");
 
         }
 
         function openSpotify() {
+            openApp("SPOTIFY");
+        }
+
+        function openApp(text) {
+            // Play audio cue
             audio.pause();
             audio.play();
 
+            // Grab DOM elements
+            const appBackground = document.getElementById("app-background");
+            const backButton = document.getElementById("back");
+            const backText = document.getElementById("back-text");
+            const tiles = document.getElementsByClassName("tile");
+            const tileTexts = document.getElementsByClassName("tile-text");
+
+            // Make back button and text visible
+            backButton.style.zIndex = "0";
+            backText.style.zIndex = "0";
+
+            // Set back text to argued value
+            backText.innerText = text;
+
+            // Set tiles and texts to invisible
+            for (let tile of tiles) {
+                tile.style.zIndex = "-1";
+            }
+
+            for (let text of tileTexts) {
+                text.style.zIndex = "-1";
+            }
+
+            // Set app background to active
+            appBackground.style.zIndex = "0";
         }
 
 
@@ -320,6 +343,33 @@
             align-self: start;
             z-index: -1;
         }
+        #app-background {
+            align-items: center;
+            background-color: blue;
+            border: 1px solid black;
+            border-radius: 1em;
+            display: flex;
+            grid-area: 3 / 1 / 9 / 13;
+            height: 96%;
+            justify-content: center;
+            width: 98%;
+            z-index: -1;
+        }
+        #back {
+            grid-area: 2 / 1 / 3 / 2;
+            z-index: -1;
+        }
+        #back:hover {
+            cursor: pointer;
+        }
+        #back img {
+            max-width: 3em;
+        }
+        #back-text {
+            font-size: x-large;
+            grid-area: 2 / 2 / 3 / 3;
+            z-index: -1;
+        }
         #clock {
             align-items: center;
             background-color: blue;
@@ -413,6 +463,10 @@
         <div class="button" id="power">
             <div class="button-text" id="power-text">OFF</div>
         </div>
+        <div class="back button" id="back">
+            <img src="https://cdn-icons-png.flaticon.com/512/3114/3114883.png" alt="Back button">
+        </div>
+        <div class="back" id="back-text">TV</div>
         <div id="clock">
             <div id="clock-text">9:31 PM</div>
         </div>
@@ -448,6 +502,7 @@
             <img src="https://cdn-icons-png.flaticon.com/512/2111/2111624.png" alt="Spotify icon">
         </div>
         <div class="tile-text" id="spotify-text">SPOTIFY</div>
+        <div id="app-background"></div>
     </div>
 </body>
 </html>
