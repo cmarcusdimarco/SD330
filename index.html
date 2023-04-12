@@ -6,15 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Directory</title>
     <style>
+        html {
+            background-image: url(https://media.istockphoto.com/id/1289567078/vector/light-grey-brick-wall-light-grey-brick-wall-background-light-grey-brick-wallpaper-industrial.jpg?s=612x612&w=0&k=20&c=WpDYsgVQz7ToBaNvYCtXZDcThbW5LSgmwyWm4q0mpME=);
+        }
+        body {
+            background-color: white;
+            border: 1px solid black;
+            margin-left: 30%;
+            margin-right: 30%;
+            padding: 1em 0;
+        }
+        body, .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
         img {
-            width: 30px;
-            height: 30px;
+            border-radius: 50%;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            object-position: 0 10%;
+        }
+        h1, p {
+            margin-bottom: 0;
+        }
+        h2 {
+            margin: 5px;
+        }
+        hr {
+            width: 100%;
+        }
+        ul {
+            text-align: left;
+        }
+        .welcome {
+            font-weight: bold;
+        }
+        #files {
+            min-width: 80%;
+        }
+        @media (max-width: 768px) {
+            body {
+                margin-left: 10%;
+                margin-right: 10%;
+            }
         }
     </style>
 </head>
 <body onload="fileList()">
-    <img src="images/Headshot.jpg">
+    <div class="container">
+        <img src="images/Headshot.jpg">
+        <h1>C. Marcus DiMarco</h1>
+        <h2>System Design Student</h2>
+        <hr>
+    </div>
+    <p id="welcome">Welcome to my SD330 repository!</p>
+    <p>Below you'll find a collection of my work during the latter half of this course.</p>
+    <p>Enjoy!</p>
     <p id="files"></p>
+    <footer>
+        <hr>
+        <small>&copy; C. Marcus DiMarco, 2023</small>
+    </footer>
     <script>
     
         function fileList(){ 
@@ -28,8 +83,7 @@
                 fname = file.name;           
                 fpath = "https://cmarcusdimarco.github.io/SD330/" + fname;  
                 
-                htmlString += "<li>" + fname + "</li>";
-                htmlString += "<li>" + fpath + "</li>";
+                htmlString += "<li><a href=\"" + fpath + "\">" + fname + "</a></li>";
             }
         
             htmlString += '</ul></div>';
