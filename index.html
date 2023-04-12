@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory</title>
+</head>
+<body>
+    <p id="files"></p>
+    <script>
+    
+        function fileList(){ 
+        (async () => {
+            const response = await fetch("https://api.github.com/repos/cmarcusdimarco/SD330/contents/");
+            const data = await response.json();
+        
+            let htmlString = "<div><ul>";
+            for (let file of data) {
+                
+                fname = file.name;           
+                fpath = "https://cmarcusdimarco.github.io/SD330/" + fname;  
+                
+                htmlString += "<li>" + fname + "</li>";
+                htmlString += "<li>" + fpath + "</li>";
+            }
+        
+            htmlString += '</ul></div>';
+            document.getElementById('files').innerHTML = htmlString;
+        })()
+    }	
+    </script>
+        
+</body>
+</html>
