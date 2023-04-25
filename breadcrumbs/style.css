@@ -1,0 +1,14 @@
+body {
+    font-family:'Montserrat', 'sans-serif';
+}
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+nav li {
+    display: inline;
+}
+nav li+li:before {
+    content: ">";
+    padding-right: 4px;
+}
