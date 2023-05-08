@@ -8,7 +8,7 @@ nav {
     height: 3.5rem;
     justify-content: space-between;
 }
-nav ul, .breadcrumbs ul {
+nav ul {
     list-style-type: none;
     padding-left: 0;
     margin-left: 0.5rem;
@@ -46,6 +46,11 @@ nav li:hover {
 .banner h1 {
     color: white;
     font-size: 7rem;
+}
+.breadcrumbs ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 1rem;
 }
 .breadcrumbs li {
     display: inline;
