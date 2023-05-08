@@ -5,12 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FoxBooks</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
 </head>
-<body>
+<body onload="viewCourses()">
     <header>
         <div class="banner">
             <h1>FoxBooks</h1>
@@ -32,8 +33,8 @@
         </div>
     </header>
     <div class="main">
-        <h2>Welcome to FoxBooks!</h2>
-        <p>Get started by visiting our <a href="./courses.html">Courses</a> page!</p>
+        <h2>Courses</h2>
+        <div id="courseList"></div>
     </div>
     <footer>
         <hr>
