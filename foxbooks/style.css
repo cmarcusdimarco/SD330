@@ -1,0 +1,62 @@
+body {
+    font-family: 'Cormorant Garamond', serif;
+}
+nav {
+    background-color: rgb(248, 44, 44, 0.75);
+    display: flex;
+    height: 3.5rem;
+    justify-content: space-between;
+}
+nav ul, .breadcrumbs ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+nav li {
+    background-color: white;
+    border-radius: 2rem;
+    color: rgb(248, 44, 44);
+    display: inline;
+    font-weight: bold;
+    margin: 0.5rem;
+    padding: 0.25rem 1.5rem;
+}
+nav a {
+    color: inherit;
+    text-decoration: inherit;
+}
+nav li:hover {
+    background-color: rgb(230, 230, 230);
+}
+.active, .breadcrumbs .active {
+    color: black;
+}
+.active:hover {
+    background-color: white;
+}
+.banner {
+    align-items: center;
+    background-color: rgb(248, 44, 44);
+    display: flex;
+    height: 8rem;
+    justify-content: center;
+}
+.banner h1 {
+    color: white;
+    font-size: 7rem;
+}
+.breadcrumbs li {
+    display: inline;
+}
+.breadcrumbs a {
+    color:rgb(248, 44, 44);
+    text-decoration: none;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs li+li:before {
+    content: ">";
+    padding-right: 4px;
+}
