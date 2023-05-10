@@ -28,6 +28,7 @@ async function getDesiredCourse() {
     const courseId = urlParams.get('courseId');
 
     const bookList = document.getElementById('bookList');
+    const bookHeading = document.getElementById('bookFilterHeading');
 
     bookList.innerHTML = "<ul>";
 
@@ -42,13 +43,22 @@ async function getDesiredCourse() {
         }
     });
 
+    bookHeading.innerText = "Books for";
+
     if (courseId) {
+        const course = data.courses.filter(course => {
+            return course.courseId === courseId;
+        });
+
+        bookHeading.innerText += ` ${course[0].title}`;
         for (let book of data.books) {
-            book.courseId === courseId ? bookList.innerHTML += `<li>${book.title}</li>` : null;
+            book.courseId === courseId ? bookList.innerHTML += `<li><a href="https://marist.bncollege.com/search/?text=${book.isbn}" target="_blank">${book.title}</a></li>` : null;
         }
     } else {
+        bookHeading.innerText += " all courses";
+
         for (let book of data.books) {
-            bookList.innerHTML += `<li>${book.title}</li>`;
+            bookList.innerHTML += `<li><a href="https://marist.bncollege.com/search/?text=${book.isbn}" target="_blank">${book.title}</a></li>`;
         }
     }
 
