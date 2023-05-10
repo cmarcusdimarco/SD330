@@ -66,6 +66,9 @@ nav li:hover {
     content: ">";
     padding-right: 4px;
 }
+#courseList, #bookList {
+    padding-left: 2rem;
+}
 footer, .main {
     margin: 0 1rem;
 }

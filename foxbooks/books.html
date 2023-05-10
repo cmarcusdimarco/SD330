@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="script.js"></script>
 </head>
-<body>
+<body onload="getDesiredCourse()">
     <header>
         <div class="banner">
             <h1>FoxBooks</h1>
@@ -33,12 +34,12 @@
         </div>
     </header>
     <div class="main">
-        <h2>Welcome to FoxBooks!</h2>
-        <p>Get started by visiting our <a href="./courses.html">Courses</a> page!</p>
+        <h2>Books</h2>
+        <div id="bookList"></div>
     </div>
     <footer>
         <hr>
-        <small>&copy; <a href="https://github.com/cmarcusdimarco">C. Marcus DiMarco</a>, 2023</small>
+        <small>&copy; <a href="https://github.com/cmarcusdimarco" target="_blank">C. Marcus DiMarco</a>, 2023</small>
     </footer>
 </body>
 </html>
